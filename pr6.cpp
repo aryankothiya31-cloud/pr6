@@ -1,89 +1,60 @@
 //pr 6
-//question 1
+// question 1
 #include <stdio.h>
-#include<string.h>
-
-int add(int a, int b);
-int sub(int a, int b);
-int mul(int a, int b);
-float divi(int a, int b);
-int mod(int a, int b);
+#include <string.h>
 
 int main() {
-    int choice, a, b;
+    int i, len, j = 0;
+    char str[20];
+    char rev[20];
 
-    while(1) {
-        printf("\nPress 1 for +");
-        printf("\nPress 2 for -");
-        printf("\nPress 3 for *");
-        printf("\nPress 4 for /");
-        printf("\nPress 5 for %%");
-        printf("\nPress 0 for exit");
+    printf("Enter the string: ");
+    fgets(str, 20, stdin);
 
-        printf("\nEnter your choice: ");
-        scanf("%d", &choice);
+    str[strcspn(str, "\n")] = '\0';
 
-        if(choice == 0) {
-            printf("Exiting program...\n");
-            break;
-        }
+    len = strlen(str);
 
-        printf("Enter the first number: ");
-        scanf("%d", &a);
-        printf("Enter the second number: ");
-        scanf("%d", &b);
+    for(i = len - 1; i >= 0; i--){
+        rev[j] = str[i];
+        j++;
+    }
+    rev[j] = '\0';
 
-        switch(choice) {
-            case 1:
-                printf("Addition of %d and %d is %d\n", a, b, add(a, b));
-                break;
-
-            case 2:
-                printf("Subtraction of %d and %d is %d\n", a, b, sub(a, b));
-                break;
-
-            case 3:
-                printf("Multiplication of %d and %d is %d\n", a, b, mul(a, b));
-                break;
-
-            case 4:
-                if(b != 0)
-                    printf("Division of %d and %d is %.2f\n", a, b, divi(a, b));
-                else
-                    printf("Error! Division by zero\n");
-                break;
-
-            case 5:
-                if(b != 0)
-                    printf("Modulus of %d and %d is %d\n", a, b, mod(a, b));
-                else
-                    printf("Error! Modulus by zero\n");
-                break;
-
-            default:
-                printf("Invalid choice!\n");
-        }
+    if(strcmp(rev, str) == 0){
+        printf("This is palindrome");
+    }
+    else{
+        printf("This is not palindrome");
     }
 
     return 0;
 }
 
-int add(int a, int b) {
-    return a + b;
-}
+// question 2
+#include <stdio.h>
+#include<string.h>
 
-int sub(int a, int b) {
-    return a - b;
-}
+int main() {
+    char str[100];
+    int freq[256] = {0};
+    int i;
 
-int mul(int a, int b) {
-    return a * b;
-}
+    printf("Enter a string: ");
+    fgets(str,100,stdin);
+    
+     str[strcspn(str, "\n")] = '\0';
+    
+    for(i = 0; str[i] != '\0'; i++) {
+        freq[(unsigned char)str[i]]++;
+    }
 
-float divi(int a, int b) {
-    return (float)a / b;
-}
+    printf("Character frequencies:\n");
+    for(i = 0; i < 256; i++) {
+        if(freq[i] > 0) {
+            printf("'%c' : %d\n", i, freq[i]);
+        }
+    }
 
-int mod(int a, int b) {
-    return a % b;
+    return 0;
 }
